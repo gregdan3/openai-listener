@@ -1,0 +1,25 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "gregdan3", email = "gregdan3@pm.me"},
+]
+dependencies = [
+    "openai~=0.10",
+    "telethon~=1.23",
+    "python-dotenv~=0.19",
+]
+requires-python = ">=3.9"
+dynamic = ["classifiers"]
+license = {text = "GPT-v3.0-or-later"}
+
+[project.urls]
+homepage = ""
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
+
+[tool]
+[tool.pdm]

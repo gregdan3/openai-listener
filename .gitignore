@@ -1,0 +1,7 @@
+.pdm.toml
+__pypackages__
+
+__pycache__
+
+.env
+*.session
