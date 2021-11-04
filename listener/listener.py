@@ -12,14 +12,20 @@ from telethon import TelegramClient, events
 UWU_LIB_AVAIL = importlib.util.find_spec("uwuify") is not None
 if UWU_LIB_AVAIL:
     import uwuify
+
+# env only
 load_dotenv()
 OPENAI_KEY = os.environ.get("OPENAI_KEY")
 TG_API_ID = os.environ.get("TG_API_ID")
 TG_API_HASH = os.environ.get("TG_API_HASH")
-MY_USER_ID = int(os.environ.get("MY_USER_ID"))
+MY_USER_ID = os.environ.get("MY_USER_ID")
+if MY_USER_ID:
+    MY_USER_ID = int(MY_USER_ID)
+
 # args only
 UWU = False
 
+# resultants
 openai.api_key = OPENAI_KEY
 completion = openai.Completion()
 client = TelegramClient("listener", TG_API_ID, TG_API_HASH)
