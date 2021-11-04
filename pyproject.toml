@@ -14,8 +14,10 @@ requires-python = ">=3.9"
 dynamic = ["classifiers"]
 license = {text = "GPT-v3.0-or-later"}
 
-[project.urls]
-homepage = ""
+[project.optional-dependencies]
+uwu = [
+    "uwuify~=1.1",
+]
 
 [build-system]
 requires = ["pdm-pep517"]
@@ -23,3 +25,4 @@ build-backend = "pdm.pep517.api"
 
 [tool]
 [tool.pdm]
+[tool.pdm.dev-dependencies]
