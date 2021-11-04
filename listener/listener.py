@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+import argparse
 import asyncio
+import importlib
 import os
 from collections import deque
 
@@ -7,11 +9,16 @@ import openai
 from dotenv import load_dotenv
 from telethon import TelegramClient, events
 
+UWU_LIB_AVAIL = importlib.util.find_spec("uwuify") is not None
+if UWU_LIB_AVAIL:
+    import uwuify
 load_dotenv()
 OPENAI_KEY = os.environ.get("OPENAI_KEY")
 TG_API_ID = os.environ.get("TG_API_ID")
 TG_API_HASH = os.environ.get("TG_API_HASH")
 MY_USER_ID = int(os.environ.get("MY_USER_ID"))
+# args only
+UWU = False
 
 openai.api_key = OPENAI_KEY
 completion = openai.Completion()
@@ -81,6 +88,8 @@ async def new_message_handler(event):
     print(f"{AI_AUTHOR}: {from_ai}")
     add_message(from_ai, AI_AUTHOR)
 
+    if UWU:
+        from_ai = uwuify.uwu(from_ai)
     await event.reply(f"{INDICATOR}: {from_ai}")
 
 
@@ -101,4 +110,29 @@ def main():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="A cool autoresponder for connecting services to GPT3"
+    )
+    parser.add_argument(
+        "mode",
+        dest="mode",
+        choices=["telegram", "local"],
+        help="Select where to respond to the user (TODO)",
+    )
+    parser.add_argument(
+        "--uwu",
+        dest="uwu",
+        action="store_true",
+        default=False,
+        help="uwuify all responses",
+    )
+
+    ARGV = parser.parse_args()
+
+    if ARGV.uwu:
+        if UWU_LIB_AVAIL:
+            UWU = True
+        else:
+            exit("--uwu set but uwuify is not importable!")
+
     main()
