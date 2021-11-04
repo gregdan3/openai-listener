@@ -121,7 +121,6 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "mode",
-        dest="mode",
         choices=["telegram", "local"],
         help="Select where to respond to the user (TODO)",
     )
